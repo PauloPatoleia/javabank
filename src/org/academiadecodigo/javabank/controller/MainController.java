@@ -1,5 +1,9 @@
 package org.academiadecodigo.javabank.controller;
 
+import org.academiadecodigo.javabank.model.Customer;
+import org.academiadecodigo.javabank.service.AuthService;
+import org.academiadecodigo.javabank.service.AuthServiceInterface;
+import org.academiadecodigo.javabank.service.CustomerService;
 import org.academiadecodigo.javabank.view.MainView;
 import org.academiadecodigo.javabank.view.Messages;
 import org.academiadecodigo.javabank.view.UserOptions;
@@ -12,6 +16,7 @@ import java.util.Map;
 public class MainController extends AbstractController {
 
     private Map<Integer, Controller> controllerMap;
+    private CustomerService customerService;
 
     /**
      * Sets the controller map, responsible for the mapping between the menu options and the respective controller
@@ -20,15 +25,11 @@ public class MainController extends AbstractController {
      */
     public void setControllerMap(Map<Integer, Controller> controllerMap) {
         this.controllerMap = controllerMap;
+
     }
 
-    /**
-     * Gets the customer name
-     *
-     * @return the customer name
-     */
-    public String getCustomerName() {
-        return authService.getAccessingCustomer().getName();
+    public void setCustomerService(CustomerService customerService) {
+        this.customerService = customerService;
     }
 
     /**
@@ -48,5 +49,11 @@ public class MainController extends AbstractController {
 
         controllerMap.get(option).init();
         init();
+
     }
+
+    public Customer getLoginCustomer() {
+        return authService.getAccessingCustomer();
+    }
+
 }

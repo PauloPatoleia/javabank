@@ -10,6 +10,17 @@ import org.academiadecodigo.javabank.model.account.SavingsAccount;
  */
 public class AccountFactory {
 
+    private int nextAccountId = 1;
+
+    /**
+     * Gets the next account id
+     *
+     * @return the next account id
+     */
+    private int getNextId() {
+        return nextAccountId++;
+    }
+
     /**
      * Creates a new {@link Account}
      *
@@ -21,10 +32,10 @@ public class AccountFactory {
         Account newAccount;
         switch (accountType) {
             case CHECKING:
-                newAccount = new CheckingAccount();
+                newAccount = new CheckingAccount(getNextId());
                 break;
             case SAVINGS:
-                newAccount = new SavingsAccount();
+                newAccount = new SavingsAccount(getNextId());
                 break;
             default:
                 newAccount = null;

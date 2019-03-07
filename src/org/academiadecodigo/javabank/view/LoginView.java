@@ -1,6 +1,6 @@
 package org.academiadecodigo.javabank.view;
 
-import org.academiadecodigo.bootcamp.scanners.integer.IntegerInputScanner;
+import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.javabank.controller.LoginController;
 
 /**
@@ -26,11 +26,6 @@ public class LoginView extends AbstractView {
      */
     @Override
     public void show() {
-
-        if (loginController.isAuthFailed()) {
-            System.out.println("\n" + Messages.VIEW_LOGIN_ERROR);
-        }
-
         showBankName();
         showLoginPrompt();
     }
@@ -41,7 +36,7 @@ public class LoginView extends AbstractView {
 
     private void showLoginPrompt() {
 
-        IntegerInputScanner scanner = new IntegerInputScanner();
+        IntegerSetInputScanner scanner = new IntegerSetInputScanner(loginController.getCustomerIds());
         scanner.setMessage("\n" + Messages.VIEW_LOGIN_MESSAGE);
         scanner.setError(Messages.VIEW_LOGIN_ERROR);
         loginController.onLogin(prompt.getUserInput(scanner));

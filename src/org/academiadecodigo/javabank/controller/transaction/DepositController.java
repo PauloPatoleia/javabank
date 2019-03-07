@@ -1,5 +1,7 @@
 package org.academiadecodigo.javabank.controller.transaction;
 
+import org.academiadecodigo.javabank.model.Customer;
+
 /**
  * A controller used for deposit transactions
  * @see AbstractAccountTransactionController
@@ -14,5 +16,10 @@ public class DepositController extends AbstractAccountTransactionController {
     @Override
     public void submitTransaction(int accountId, double amount) {
         accountService.deposit(accountId, amount);
+    }
+
+    @Override
+    public Customer getLoginCustomer() {
+        return authService.getAccessingCustomer();
     }
 }

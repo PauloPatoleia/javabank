@@ -3,6 +3,7 @@ package org.academiadecodigo.javabank.view;
 import org.academiadecodigo.bootcamp.scanners.integer.IntegerSetInputScanner;
 import org.academiadecodigo.bootcamp.scanners.precisiondouble.DoubleInputScanner;
 import org.academiadecodigo.javabank.controller.transaction.AccountTransactionController;
+import org.academiadecodigo.javabank.model.Customer;
 
 /**
  * A view used to show occurring transactions
@@ -17,7 +18,7 @@ public class AccountTransactionView extends AbstractView {
     /**
      * Sets the controller responsible for rendering the view
      *
-     * @param transactionController the controller to set
+     * @param transactionController the transaction controller to set
      */
     public void setTransactionController(AccountTransactionController transactionController) {
         this.transactionController = transactionController;
@@ -29,7 +30,7 @@ public class AccountTransactionView extends AbstractView {
     @Override
     public void show() {
 
-        if (transactionController.getAccountIds().size() == 0) {
+        if (transactionController.getLoginCustomer().getAccountIds().size() == 0) {
             showNoAccounts();
             return;
         }
@@ -51,7 +52,7 @@ public class AccountTransactionView extends AbstractView {
 
         StringBuilder builder = new StringBuilder();
 
-        for (Integer id : transactionController.getAccountIds()) {
+        for (Integer id : transactionController.getLoginCustomer().getAccountIds()) {
             builder.append(id);
             builder.append(" ");
         }
@@ -61,7 +62,8 @@ public class AccountTransactionView extends AbstractView {
 
     private int scanAccount() {
 
-        IntegerSetInputScanner scanner = new IntegerSetInputScanner(transactionController.getAccountIds());
+        Customer customer = transactionController.getLoginCustomer();
+        IntegerSetInputScanner scanner = new IntegerSetInputScanner(customer.getAccountIds());
         scanner.setMessage(Messages.VIEW_ACCOUNT_TRANSACTION_ACCOUNTID_MESSAGE);
         scanner.setError(Messages.VIEW_ACCOUNT_TRANSACTION_INVALID_ACCOUNT_ERROR);
         return prompt.getUserInput(scanner);

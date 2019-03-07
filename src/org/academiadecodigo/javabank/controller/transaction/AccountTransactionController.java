@@ -1,21 +1,13 @@
 package org.academiadecodigo.javabank.controller.transaction;
 
 import org.academiadecodigo.javabank.controller.Controller;
-
-import java.util.Set;
+import org.academiadecodigo.javabank.model.Customer;
 
 /**
  * Common interface for account transaction controllers,
- * provides methods to perform account transactions and to get account ids
+ * provides a method to perform account transactions
  */
 public interface AccountTransactionController extends Controller {
-
-    /**
-     * Gets the ids of the customer accounts
-     *
-     * @return the account ids
-     */
-    Set<Integer> getAccountIds();
 
     /**
      * Perform an account transaction
@@ -24,4 +16,6 @@ public interface AccountTransactionController extends Controller {
      * @param amount the amount of the transaction
      */
     void submitTransaction(int accountId, double amount);
+
+    Customer getLoginCustomer();
 }
